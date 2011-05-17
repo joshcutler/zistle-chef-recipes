@@ -3,7 +3,7 @@
 # Recipe:: default
 #
 
-if node[:instance_role] == "solo" || (node[:instance_role] == "util" && node[:name] !~ /^(mongodb|redis|memcache)/)
+if node[:instance_role] == "solo" || (naode[:instance_role] == "app_master") || (node[:instance_role] == "util" && node[:name] !~ /^(mongodb|redis|memcache)/)
   node[:applications].each do |app_name,data|
   
     # determine the number of workers to run based on instance size
@@ -12,7 +12,7 @@ if node[:instance_role] == "solo" || (node[:instance_role] == "util" && node[:na
     else
       case node[:ec2][:instance_type]
       when 'm1.small': worker_count = 2
-      when 'c1.medium': worker_count = 4
+      when 'c1.medium': worker_count = 2
       when 'c1.xlarge': worker_count = 8
       else 
         worker_count = 2
@@ -34,6 +34,7 @@ if node[:instance_role] == "solo" || (node[:instance_role] == "util" && node[:na
       end
     end
     
+    ey_cloud_report "delayed_job" do message "restarting delayed_job" end
     execute "monit-reload-restart" do
        command "sleep 30 && monit reload && monit restart all dj_#{app_name}"
        action :run
