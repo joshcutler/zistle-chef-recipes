@@ -67,7 +67,7 @@ require_recipe "delayed_job"
 #require_recipe "mysql_administrative_tools"
 
 #uncomment to include the Elasticsearch recipe
-require_recipe "elasticsearch:non_util"
+require_recipe "elasticsearch::non_util"
 
 # To install specific plugins to Elasticsearch see below as an example
 #es_plugin "cloud-aws" do
