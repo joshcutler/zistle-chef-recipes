@@ -35,13 +35,7 @@ if node[:instance_role] == "solo" || (node[:instance_role] == "app_master") || (
       end
     end
     
-<<<<<<< HEAD
-    ey_cloud_report "delayed_job" do message "restarting delayed_job" end
-    execute "monit-reload-restart" do
-       command "sleep 30 && monit reload && monit restart all dj_#{app_name}"
-=======
     execute "monit reload" do
->>>>>>> 8f501949afb6d6d1d123e2d2d9d1d40701f50128
        action :run
        epic_fail true
     end
