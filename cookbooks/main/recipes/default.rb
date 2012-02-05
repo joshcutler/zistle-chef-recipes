@@ -4,20 +4,14 @@
 #  }
 #end
 
-# uncomment if you want to run postgres recipe
-#require_recipe 'postgres'
-
-# uncomment if you want to run couchdb recipe
-# require_recipe "couchdb"
-
-# uncomment to turn use the MBARI ruby patches for decreased memory usage and better thread/continuationi performance
-# require_recipe "mbari-ruby"
-
 # uncomment to turn on thinking sphinx/ultra sphinx. Remember to edit cookbooks/sphinx/recipes/default.rb first!
 # require_recipe "sphinx"
 
 #uncomment to turn on memcached
 require_recipe "memcached"
+
+#uncomment ot run the riak recipe
+# require_recipe "riak"
 
 #uncomment to run the authorized_keys recipe
 #require_recipe "authorized_keys"
@@ -41,9 +35,13 @@ require_recipe "memcached"
 
 #uncomment to run the exim::auth recipe
 #require_recipe "exim::auth"
+#require_recipe "mongodb"
 
 #uncomment to run the resque recipe
-#require_recipe "resque"
+# require_recipe "resque"
+
+#uncomment to run the resque-scheduler recipe
+# require_recipe "resque-scheduler"
 
 #uncomment to run the redis recipe
 #require_recipe "redis"
@@ -61,11 +59,61 @@ require_recipe "delayed_job"
 #uncomment to include the eybackup_verbose recipe
 #require_recipe "eybackup_verbose"
 
-#require_recipe 'nginx'
-
 #uncomment to include the mysql_replication_check recipe
 #require_recipe "mysql_replication_check"
 
 #uncomment to include the mysql_administrative_tools recipe
 # additional configuration of this recipe is required
 #require_recipe "mysql_administrative_tools"
+
+#uncomment to include the Elasticsearch recipe
+require_recipe "elasticsearch:non_util"
+
+# To install specific plugins to Elasticsearch see below as an example
+#es_plugin "cloud-aws" do
+#  action :install
+#end
+
+#es_plugin "transport-memcached" do
+#  action :install
+#end
+
+#uncomment to include the newrelic_server_monitoring recipe
+#require_recipe "newrelic_server_monitoring"
+
+#enable Extension modules for a given Postgresql database
+# if ['solo','db_master', 'db_slave'].include?(node[:instance_role])
+  # Extensions supported by 9.0
+  # postgresql9_postgis "dbname"
+  
+  # Extensions that support both Postgres 9.0 and 9.1
+  # postgresql9_autoexplain "dbname"
+  # postgresql9_btree_gin "dbname"
+  # postgresql9_btree_gist "dbname"
+  # postgresql9_chkpass "dbname"
+  # postgresql9_citext "dbname"
+  # postgresql9_cube "dbname"
+  # postgresql9_dblink "dbname"
+  # postgresql9_earthdistance "dbname"
+  # postgresql9_fuzzystrmatch "dbname"
+  # postgresql9_hstore "dbname"
+  # postgresql9_isn "dbname"
+  # postgresql9_lo "dbname"
+  # postgresql9_ltree "dbname"
+  # postgresql9_pg_trgm "dbname"  
+  # postgresql9_pgcrypto "dbname"
+  # postgresql9_pgrowlocks "dbname"
+  # postgresql9_seg "dbname"
+  # postgresql9_tablefunc "dbname"
+  # postgresql9_unaccent "dbname"
+  # postgresql9_uuid_ossp "dbname"
+  
+  # 9.1 Extensions
+  # postgresql9_file_fdw "dbname" 
+  
+  #Admin-Level Contribs
+  # postgresql9_pg_buffercache "postgres"
+  # postgresql9_pg_freespacemap "postgres"
+  # postgresql9_pg_stat_statements "todo" - Not done
+  
+# end
